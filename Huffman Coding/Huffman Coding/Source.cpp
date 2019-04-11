@@ -1,61 +1,61 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 
 using namespace std;
 
-struct Node{
+struct Node {
 	double weight;
 	string ch;
 	string code;
-	 int lchild, rchild, parent;
+	int lchild, rchild, parent;
 };
 
-void Select(Node huffTree[], int *a, int *b, int n) {//§äÅv­È³Ì¤pªº¨â­Óa©Mb  
+void Select(Node huffTree[], int *a, int *b, int n) {//æ‰¾æ¬Šå€¼æœ€å°çš„å…©å€‹aå’Œb  
 	int i;
-	double weight = 0; //§ä³Ì¤pªº¼Æ
-	for (i = 0; i < n; i++){
-		if (huffTree[i].parent != -1)     //§PÂ_¸`ÂI¬O§_¤w¸g¿ï¹L
+	double weight = 0; //æ‰¾æœ€å°çš„æ•¸
+	for (i = 0; i < n; i++) {
+		if (huffTree[i].parent != -1)     //åˆ¤æ–·ç¯€é»æ˜¯å¦å·²ç¶“é¸é
 			continue;
 		else {
 			if (weight == 0) {
 				weight = huffTree[i].weight;
-				* a = i;
+				*a = i;
 			}
 			else {
 				if (huffTree[i].weight < weight) {
 					weight = huffTree[i].weight;
-					* a = i;
+					*a = i;
 				}
 			}
 		}
 	}
-	weight = 0; //§ä²Ä¤G¤pªº¼Æ
+	weight = 0; //æ‰¾ç¬¬äºŒå°çš„æ•¸
 	for (i = 0; i < n; i++) {
-		if (huffTree[i].parent != -1 || (i == *a))//±Æ°£¤w¿ï¹Lªº¼Æ
+		if (huffTree[i].parent != -1 || (i == *a))//æ’é™¤å·²é¸éçš„æ•¸
 			continue;
 		else {
 			if (weight == 0) {
 				weight = huffTree[i].weight;
-				* b = i;
+				*b = i;
 			}
 			else {
 				if (huffTree[i].weight < weight) {
 					weight = huffTree[i].weight;
-					* b = i;
+					*b = i;
 				}
 			}
 		}
 	}
 	int temp;
-	if (huffTree[*a].lchild < huffTree[*b].lchild) {//¤pªº¼Æ©ñ¥ªÃä
+	if (huffTree[*a].lchild < huffTree[*b].lchild) {//å°çš„æ•¸æ”¾å·¦é‚Š
 		temp = *a;
-		* a = *b;
-		* b = temp;
+		*a = *b;
+		*b = temp;
 	}
 }
 
 void Huff_Tree(Node huffTree[], int w[], string ch[], int n) {
-	for (int i = 0; i < 2 * n - 1; i++) {//ªì©l¹Lµ{	
+	for (int i = 0; i < 2 * n - 1; i++) {//åˆå§‹éç¨‹	
 		huffTree[i].parent = -1;
 		huffTree[i].lchild = -1;
 		huffTree[i].rchild = -1;
@@ -68,7 +68,7 @@ void Huff_Tree(Node huffTree[], int w[], string ch[], int n) {
 	for (int k = n; k < 2 * n - 1; k++) {
 		int i1 = 0;
 		int i2 = 0;
-		Select(huffTree, &i1, &i2, k); //±Ni1¡Ai2¸`ÂI¦X¦¨¸`ÂIk
+		Select(huffTree, &i1, &i2, k); //å°‡i1ï¼Œi2ç¯€é»åˆæˆç¯€é»k
 		huffTree[i1].parent = k;
 		huffTree[i2].parent = k;
 		huffTree[k].weight = huffTree[i1].weight + huffTree[i2].weight;
@@ -83,9 +83,9 @@ void Huff_Code(Node huffTree[], int n) {
 	for (i = 0; i < n; i++) {
 		s = "";
 		j = i;
-		while (huffTree[j].parent != -1) {//±q¸­¤l©¹¤W§ä¨ì®Ú¸`ÂI
+		while (huffTree[j].parent != -1) {//å¾è‘‰å­å¾€ä¸Šæ‰¾åˆ°æ ¹ç¯€é»
 			k = huffTree[j].parent;
-			if (j == huffTree[k].lchild) {//¦pªG¬O®Úªº¥ª«Ä¤l¡A«h°O¬°0
+			if (j == huffTree[k].lchild) {//å¦‚æœæ˜¯æ ¹çš„å·¦å­©å­ï¼Œå‰‡è¨˜ç‚º0
 				s = s + "0";
 			}
 			else {
@@ -93,18 +93,18 @@ void Huff_Code(Node huffTree[], int n) {
 			}
 			j = huffTree[j].parent;
 		}
-		cout << "¦r²Å " << huffTree[i].ch << " ªº½s½X¡G";
+		cout << "å­—ç¬¦ " << huffTree[i].ch << " çš„ç·¨ç¢¼ï¼š";
 		for (int l = s.size() - 1; l >= 0; l--) {
 			cout << s[l];
-			huffTree[i].code += s[l]; //«O¦s½s½X
+			huffTree[i].code += s[l]; //ä¿å­˜ç·¨ç¢¼
 		}
 		cout << endl;
 	}
 }
 
 //string Huff_Decode(Node huffTree[], int n, string s) {
-//	cout << "¸Ñ½X«á¬°¡G";
-//	string temp = "", str = "";//«O¦s¸Ñ½X«áªº¦r²Å¦ê
+//	cout << "è§£ç¢¼å¾Œç‚ºï¼š";
+//	string temp = "", str = "";//ä¿å­˜è§£ç¢¼å¾Œçš„å­—ç¬¦ä¸²
 //	for (int i = 0; i < s.size(); i++) {
 //		temp = temp + s[i];
 //		for (int j = 0; j < n; j++) {
@@ -113,8 +113,8 @@ void Huff_Code(Node huffTree[], int n) {
 //				temp = "";
 //				break;
 //				}
-//			else if (i == s.size() - 1 && j == n - 1 && temp != "") {//¥ş³¡¹M¾ú«á¨S¦³
-//				str = "¸Ñ½X¿ù»~¡I";
+//			else if (i == s.size() - 1 && j == n - 1 && temp != "") {//å…¨éƒ¨éæ­·å¾Œæ²’æœ‰
+//				str = "è§£ç¢¼éŒ¯èª¤ï¼";
 //				}
 //			}
 //		}
@@ -123,7 +123,7 @@ void Huff_Code(Node huffTree[], int n) {
 
 int main()
 {
-	//½s½X¹Lµ{
+	//ç·¨ç¢¼éç¨‹
 	const int n = 6;
 	Node huffTree[2 * n];
 	string word;
@@ -135,12 +135,12 @@ int main()
 		str[i] = word;
 		w[i] = num;
 	}
-	
+
 	Huff_Tree(huffTree, w, str, n);
 	Huff_Code(huffTree, n);
-	////¸Ñ½X¹Lµ{
+	////è§£ç¢¼éç¨‹
 	//string s;
-	//cout << "¿é¤J½s½X¡G";
+	//cout << "è¼¸å…¥ç·¨ç¢¼ï¼š";
 	//cin >> s;
 	//cout << Huff_Decode(huffTree, n, s) << endl;;
 	system("pause");
