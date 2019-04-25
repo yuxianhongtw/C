@@ -41,6 +41,9 @@ istream &operator >> (istream &s, Rational &r) {
 }
 
 ostream &operator << (ostream &s, Rational r) {
+	cout << "相加完的分數為: ";
+	s << r._num << "/" << r._den << endl;
+	cout << "轉為小數為: ";
 	s  << r.ans << endl;	
 	return s;
 }

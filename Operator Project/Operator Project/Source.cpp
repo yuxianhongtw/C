@@ -11,7 +11,7 @@ int main() {
 	c = a + b;
 	c.ffloat(c);
 	
-	cout << "Ans : " << c << endl;
+	cout << c << endl;
 
 	system("pause");
 	return 0;
